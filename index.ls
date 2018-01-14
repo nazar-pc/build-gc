@@ -15,7 +15,7 @@ module.exports	= build
  * @param {(string|!Array<string>)}	externs			Closure Compiler externs
  * @param {!Object}					gulp_instance	Your gulp instance in case you want to integrate this with your own tasks
  */
-!function build (source, output, externs, gulp_instance = gulp)
+!function build (source, output, externs = [], gulp_instance = gulp)
 	if !Array.isArray(externs)
 		externs	= [externs]
 	output		= output.split('/')
@@ -26,7 +26,7 @@ module.exports	= build
 			gulp.src(source)
 				.pipe(compiler(
 					compilationLevel	: 'ADVANCED'
-					externs				: externs.map (file) !->
+					externs				: externs.map (file) ->
 						{src	: fs.readFileSync(file).toString()}
 					jsOutputFile		: output_file
 					languageIn			: 'ES5'

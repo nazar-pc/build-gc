@@ -18,6 +18,7 @@
    */
   function build(source, output, externs, gulp_instance){
     var output_file, output_dir;
+    externs == null && (externs = []);
     gulp_instance == null && (gulp_instance = gulp);
     if (!Array.isArray(externs)) {
       externs = [externs];
@@ -29,9 +30,9 @@
       return gulp.src(source).pipe(compiler({
         compilationLevel: 'ADVANCED',
         externs: externs.map(function(file){
-          ({
+          return {
             src: fs.readFileSync(file).toString()
-          });
+          };
         }),
         jsOutputFile: output_file,
         languageIn: 'ES5',
