@@ -9,24 +9,25 @@
   compiler = require('google-closure-compiler-js').gulp();
   fs = require('fs');
   gulp = require('gulp');
-  module.exports = build;
+  module.exports = {
+    minify: minify,
+    'default': _default
+  };
   /**
-   * @param {string}					source			Source file to minify
-   * @param {string}					output			Where to output minified result
-   * @param {(string|!Array<string>)}	externs			Closure Compiler externs
-   * @param {!Object}					gulp_instance	Your gulp instance in case you want to integrate this with your own tasks
+   * @param {string}					source	Source file to minify
+   * @param {string}					output	Where to output minified result
+   * @param {(string|!Array<string>)}	externs	Closure Compiler externs
    */
-  function build(source, output, externs, gulp_instance){
+  function minify(source, output, externs){
     var output_file, output_dir;
     externs == null && (externs = []);
-    gulp_instance == null && (gulp_instance = gulp);
     if (!Array.isArray(externs)) {
       externs = [externs];
     }
     output = output.split('/');
     output_file = output.pop();
     output_dir = output.join('/');
-    gulp_instance.task('minify', function(){
+    return function(){
       return gulp.src(source).pipe(compiler({
         compilationLevel: 'ADVANCED',
         externs: externs.map(function(file){
@@ -40,6 +41,9 @@
         rewritePolyfills: false,
         warningLevel: 'VERBOSE'
       })).pipe(gulp.dest(output_dir));
-    });
+    };
+  }
+  function _default(){
+    gulp.task('default', minify.apply(null, arguments));
   }
 }).call(this);

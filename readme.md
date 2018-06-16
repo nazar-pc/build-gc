@@ -1,5 +1,7 @@
 # Build: Gulp+Closure Compiler
-Opinionated Gulp task that minifies file with Google Closure Compiler
+Opinionated Gulp task that minifies file with Google Closure Compiler.
+
+Works with Gulp 4.
 
 ## How to install
 ```
@@ -9,16 +11,21 @@ npm install --save-dev build-gc
 ## How to use
 ```javascript
 // gulpfile.js
-require('build-gc')(
-	'src/index.js',     // Source file to minify
-	'src/index.min.js', // Where to output minified result
-	'src/externs.js',   // [optional] Closure Compiler externs
-	require('gulp')     // [optional] Your gulp instance in case you want to integrate this with your own tasks
-)
+// For default and only task:
+require('build-gc').default(
+    'src/index.js',     // Source file to minify
+    'src/index.min.js', // Where to output minified result
+    'src/externs.js'    // [optional] Closure Compiler externs
+);
+// Use it for specific task
+const gulp     = require('gulp');
+const build_gc = require('build-gc');
+gulp.task('minify', build_gc.minify(
+    'src/index.js',     // Source file to minify
+    'src/index.min.js', // Where to output minified result
+    'src/externs.js'    // [optional] Closure Compiler externs
+))
 ```
-
-This will provide following gulp task:
-* minify
 
 ## Contribution
 Feel free to create issues and send pull requests (for big changes create an issue first and link it from the PR), they are highly appreciated!
