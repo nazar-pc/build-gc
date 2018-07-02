@@ -2,7 +2,7 @@
 	"name"         : "build-gc",
 	"title"        : "Build: Gulp+Closure Compiler",
 	"description"  : "Opinionated Gulp task that minifies file with Google Closure Compiler",
-	"version"      : "0.2.0",
+	"version"      : "0.2.1",
 	"homepage"     : "https://github.com/nazar-pc/build-gc",
 	"author"       : "Nazar Mokrynskyi <nazar@mokrynskyi.com>",
 	"repository"   : {
@@ -12,7 +12,7 @@
 	"license"      : "0BSD",
 	"main"         : "index.js",
 	"dependencies" : {
-		"google-closure-compiler-js" : "^20180610.0.0",
-		"gulp"                       : "^4.0.0"
+		"google-closure-compiler" : "^20180610.0.2",
+		"gulp"                    : "^4.0.0"
 	}
 }

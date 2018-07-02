@@ -6,7 +6,7 @@
  */
 (function(){
   var compiler, fs, gulp;
-  compiler = require('google-closure-compiler-js').gulp();
+  compiler = require('google-closure-compiler').gulp();
   fs = require('fs');
   gulp = require('gulp');
   module.exports = {
@@ -30,11 +30,7 @@
     return function(){
       return gulp.src(source).pipe(compiler({
         compilationLevel: 'ADVANCED',
-        externs: externs.map(function(file){
-          return {
-            src: fs.readFileSync(file).toString()
-          };
-        }),
+        externs: externs,
         jsOutputFile: output_file,
         languageIn: 'ES5',
         languageOut: 'ES5',

@@ -3,7 +3,7 @@
  * @author  Nazar Mokrynskyi <nazar@mokrynskyi.com>
  * @license 0BSD
  */
-compiler	= require('google-closure-compiler-js').gulp()
+compiler	= require('google-closure-compiler').gulp()
 fs			= require('fs')
 gulp		= require('gulp')
 
@@ -27,8 +27,7 @@ function minify (source, output, externs = [])
 		gulp.src(source)
 			.pipe(compiler(
 				compilationLevel	: 'ADVANCED'
-				externs				: externs.map (file) ->
-					{src	: fs.readFileSync(file).toString()}
+				externs				: externs
 				jsOutputFile		: output_file
 				languageIn			: 'ES5'
 				languageOut			: 'ES5'
